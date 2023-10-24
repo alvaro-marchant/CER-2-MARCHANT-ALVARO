@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Info {{title}} </title>
+    <link rel="stylesheet" href="{% static 'miapp/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'miapp/css/estilos.css' %}" />
+  </head>
+  <body>
+    <div class="container text-center " style = "padding-top:20px" >
+      <div class="row">
+        <div class="col-1">
+          <img src={% static 'miapp\img\Logo_UTFSM.png' %} class="rounded float-start" height =100px alt="...">
+        </div>
+        <div class="col-11 d-none d-sm-block" >
+          <h1> Sistema Integrado de Notificaciones </h1>
+          <hr class="hr" />
+        </div>
+      </div>
+      <div class="row d-xxl-none">
+        <div class="col d-none d-sm-block">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'admin:index' %}">Administracion</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="row d-xxl-none">
+        <div class="col-4">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Seleccione
+            </button>
+            <ul class="dropdown-menu"> 
+                {%for comunicado_a_mostrar in total_entidades%} 
+                <li><a class="dropdown-item" href="#">{{comunicado_a_mostrar.nombre}}</a></li>
+                {%endfor%}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row d-xxl-none">
+          {%for comunicado_a_mostrar in objetos_guardados %}
+          {%if comunicado_a_mostrar.visible == True%}
+          <div class="col-md-4" style = "padding-top:20px" >
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{comunicado_a_mostrar.titulo }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{comunicado_a_mostrar.entidad}}</h6>
+                <p class="card-text">{{comunicado_a_mostrar.detalle}}</p>
+              </div>
+            </div>
+          </div>
+          {%endif%}
+            {% endfor %}
+      </div>
+      <div class=" d-none d-xxl-block">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="..." class="d-block w-100" alt="...">
+            </div>
+              {%for comunicado_a_mostrar in objetos_guardados %}
+              <div class="carousel-item">
+                <div class="card">
+                  <div class="card-body">
+                    <h1 class="card-title">{{comunicado_a_mostrar.titulo }}</h5>
+                    <h3 class="card-subtitle mb-2 text-body-secondary">{{comunicado_a_mostrar.entidad}}</h6>
+                    <p class="card-text">{{comunicado_a_mostrar.detalle}}</p>
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="{% static 'miapp/js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>
